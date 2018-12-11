@@ -1,0 +1,26 @@
+ <div>
+      <table *ngFor="let package of packages" >
+          
+        <ng-container>
+              <th>Package ID</th>
+              <td>{{package.packageID}}</td>
+            </ng-container> 
+
+
+            <ng-container>
+                <th>Actions</th>
+                <td >
+                  <button (click)="editPackage(package._id)">
+                      Edit
+                  </button>
+      
+                  <button (click)="deletePackage(element._id)">
+                    Delete
+                </button>
+      
+                </td>
+              </ng-container> 
+
+          
+            </table>>
+  </div>
