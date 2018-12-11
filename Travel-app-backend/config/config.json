@@ -1,7 +1,7 @@
 {
     "development": {
         "PORT": 3000,
-        "MONGODB_URI": "mongodb://localhost:27017/Travel-app",
+        "MONGODB_URI": "mongodb://admin:hhhthegame0207@ds123454.mlab.com:23454/fcc-challenge",
         "JWT_SECRET": "SECRET#123",
         "JWT_EXP": "10m"
     },

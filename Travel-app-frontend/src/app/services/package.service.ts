@@ -10,18 +10,6 @@ import { Package } from '../models/package.model';
 })
 export class PackageService {
 
-  selectedPackage: Package = {
-    packageID: '',
-    packageName: '',
-    source:'',
-    price: 0,
-    maxPersons: 0,
-    dates:'',
-    noOfDays: 0,
-    dayTitle: '',
-    dayDescription: '',
-  };
-
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
   constructor(private http: HttpClient) { }

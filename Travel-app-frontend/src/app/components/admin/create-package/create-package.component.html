@@ -1,138 +1,127 @@
 <h2>CREATE PACKAGE</h2>
-  <form #createPackageForm="ngForm" (ngSubmit)="createPackageForm.valid && onSubmit(createPackageForm)">
+<form #createPackageForm="ngForm" (ngSubmit)="createPackageForm.valid && onSubmit(createPackageForm)">
     <fieldset>
-  
-    <div class="form-group">
-      <label for="packageID" class="col-sm-2 col-form-label text-primary" >Package ID</label>
-        <input class="form-control" type="text" #packageID="ngModel" [(ngModel)]="packageService.selectedPackage.packageID" 
-        name="packageID" placeholder="Package ID" required  id="inputDefault" >
-  
-    </div>
-  
-    <div class="form-group">
-      <label for="packageName" class="col-sm-2 col-form-label">Package Name</label>
 
-        <input class="form-control" type="text" #packageName="ngModel"  [(ngModel)]="packageService.selectedPackage.packageName"  name="packageName" placeholder="Package Name"
-        required  >
-      
-      </div>
-  
-    <div class="form-group">
-      <label for="source" class="col-sm-2 col-form-label">Source</label>
+        <div class="form-group">
+            <label for="packageID" class="col-sm-2 col-form-label text-primary">Package ID</label>
+            <input class="form-control" type="text" #packageID="ngModel" [(ngModel)]="selectedPackage.packageID" name="packageID" placeholder="Package ID" required id="inputDefault">
 
-      <input class="form-control" type="text" #source="ngModel" [(ngModel)]="packageService.selectedPackage.source" name="source" placeholder="Source"
-      required>
-  
-  </div>
+        </div>
 
-  <div class="form-group">
-    <label for="price" class="col-sm-2 col-form-label">Price</label>
-  
-    <input class="form-control" type="text" #source="ngModel" [(ngModel)]="packageService.selectedPackage.price" name="price" placeholder="Price"
-    required>
+        <div class="form-group">
+            <label for="packageName" class="col-sm-2 col-form-label">Package Name</label>
 
-</div>
-  
-  <div class="form-group">
-    <label for="maxPersons" class="col-sm-2 col-form-label">Max persons allowed</label>
-  
-      <input class="form-control" type="text" #maxPerson="ngModel" [(ngModel)]="packageService.selectedPackage.maxPersons"  name="maxPersons" placeholder="Max Persons Allowed"
-      required>
-    
-  </div>
+            <input class="form-control" type="text" #packageName="ngModel" [(ngModel)]="selectedPackage.packageName" name="packageName" placeholder="Package Name" required>
 
-  <div class="form-group">
-  
-    <label for="noOfDays" class="col-sm-2 col-form-label">No. of Days</label>
-      <select class="form-control" #noOfDays="ngModel" name="noOfDays" required id="noOfDays" [(ngModel)]="packageService.selectedPackage.noOfDays" >
+        </div>
+
+        <div class="form-group">
+            <label for="source" class="col-sm-2 col-form-label">Source</label>
+
+            <input class="form-control" type="text" #source="ngModel" [(ngModel)]="selectedPackage.source" name="source" placeholder="Source" required>
+
+        </div>
+
+        <div class="form-group">
+            <label for="price" class="col-sm-2 col-form-label">Price</label>
+
+            <input class="form-control" type="text" #source="ngModel" [(ngModel)]="selectedPackage.price" name="price" placeholder="Price" required>
+
+        </div>
+
+        <div class="form-group">
+            <label for="maxPersons" class="col-sm-2 col-form-label">Max persons allowed</label>
+
+            <input class="form-control" type="text" #maxPerson="ngModel" [(ngModel)]="selectedPackage.maxPersons" name="maxPersons" placeholder="Max Persons Allowed" required>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="noOfDays" class="col-sm-2 col-form-label">No. of Days</label>
+            <select class="form-control" #noOfDays="ngModel" name="noOfDays" required id="noOfDays" [(ngModel)]="selectedPackage.noOfDays" (change)="initializeItinerary()">
       <!-- onchange="addFields()" -->
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
+        <option [ngValue]="6">6</option>
+        <option [ngValue]="7">7</option>
       </select>
-    
-    </div>
 
-    <ul *ngIf="packageService.selectedPackage.noOfDays">
-      <li *ngFor="let i of generateDaysArray(packageService.selectedPackage.noOfDays)">
-          <input class="form-control" type="text" #day="ngModel" [(ngModel)]="packageService.selectedPackage.dayTitle"  name="dayTitle" placeholder="Day Title"
-      required >
-      <input class="form-control" type="text" #day="ngModel" [(ngModel)]="packageService.selectedPackage.dayDescription" name="dayDescription" placeholder="Day Description"
-      required > 
-      </li>
-    </ul>
+        </div>
+        <ul>
+            <li *ngFor="let item of itineraryDays; let i = index">
+                <label>{{i+1}}</label>
+                <input class="form-control" type="text" [(ngModel)]="item.dayTitle" name="{{dayTitle+i}}" placeholder="Day Title" required>
+                <input class="form-control" type="text" [(ngModel)]="item.dayDescription" name="{{dayDescription+i}}" placeholder="Day Description" required>
+            </li>
+        </ul>
+        <!-- ------Dates   -->
+        <div class="form-group">
+            <label for="dates1" class="col-sm-2 col-form-label">Tour Dates 1</label>
+
+            <input class="form-control" type="text" #dates1="ngModel" name="dates1" [(ngModel)]="selectedPackage.dates1" placeholder="Trip Dates 1" required>
+
+
+        </div>
+
+        <div class="form-group">
+
+            <input class="form-control" type="text" #dates2="ngModel" name="dates2" [(ngModel)]="selectedPackage.dates2" placeholder="Trip Dates 2" required>
+
+
+        </div>
+
+        <div class="form-group">
+
+            <input class="form-control" type="text" #dates3="ngModel" name="dates3" [(ngModel)]="selectedPackage.dates3" placeholder="Trip Dates 3" required>
+
+
+        </div>
+
+        <!-- ------Dates -->
+
+        <!-- <div class="form-group">
   
-  <!-- ------Dates -->
-  <div class="form-group">
-    <label for="dates1" class="col-sm-2 col-form-label">Tour Dates 1</label>
-    
-      <input class="form-control" type="text" #dates1="ngModel" name="dates1" [(ngModel)]="packageService.selectedPackage.dates1" placeholder="Trip Dates 1"
-      required  >
-  
-    
-  </div>
-  
-  <div class="form-group">
-  
-      <input class="form-control" type="text" #dates2="ngModel" name="dates2" [(ngModel)]="packageService.selectedPackage.dates2" placeholder="Trip Dates 2"
-      required  >
-    
-    
-  </div>
-  
-  <div class="form-group">
-  
-      <input class="form-control" type="text" #dates3="ngModel" name="dates3" [(ngModel)]="packageService.selectedPackage.dates3" placeholder="Trip Dates 3"
-      required  >
-    
-    
-  </div>
-  
-  <!-- ------Dates -->
-  
-  <!-- <div class="form-group">
-  
-      <input class="form-control" type="text" #noOfDays="ngModel" [(ngModel)]="packageService.selectedPackage.noOfDays"  name="noOfDays" placeholder="No. of Days in Package"
+      <input class="form-control" type="text" #noOfDays="ngModel" [(ngModel)]="selectedPackage.noOfDays"  name="noOfDays" placeholder="No. of Days in Package"
       required  >
     
   </div> -->
-  
-  
-  
-  <!-- Itinerary  -->
-      <div id="container"> </div>
-  
-  
-  <!-- <div *ngFor=" let day of noOfDays;" > -->
-    <!-- <div> -->
-      <!-- <label for="day">Day {{day}}</label> -->
-  
-      <!-- <input class="form-control" type="text" #day="ngModel" [(ngModel)]="packageService.selectedPackage.dayTitle"  name="dayTitle" placeholder="Day Title"
+
+
+
+        <!-- Itinerary  -->
+        <div id="container"> </div>
+
+
+        <!-- <div *ngFor=" let day of noOfDays;" > -->
+        <!-- <div> -->
+        <!-- <label for="day">Day {{day}}</label> -->
+
+        <!-- <input class="form-control" type="text" #day="ngModel" [(ngModel)]="selectedPackage.dayTitle"  name="dayTitle" placeholder="Day Title"
       required >
   
-      <input class="form-control" type="text" #day="ngModel" [(ngModel)]="packageService.selectedPackage.dayDescription" name="dayDescription" placeholder="Day Description"
+      <input class="form-control" type="text" #day="ngModel" [(ngModel)]="selectedPackage.dayDescription" name="dayDescription" placeholder="Day Description"
       required > -->
-    <!-- </div> -->
-  <!-- </div> -->
-  
-  <!-- <ng-container *ngFor="let item of list" let i=noOfDays>
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <!-- <ng-container *ngFor="let item of list" let i=noOfDays>
      <li class="dropdown-item" (click)="onClick(item)" >{{item.text}}</li> 
     <div class="form-group" *ngIf="i < noOfDays">
       
       
   </div>
   </ng-container> -->
-  
-  
-  
-  
-  <!-- Itinerary  -->
-  
-  <!-- <div class="form-group">
+
+
+
+
+        <!-- Itinerary  -->
+
+        <!-- <div class="form-group">
       <div class="input-group mb-3">
         <div class="custom-file">
           <input type="file" class="custom-file-input" id="packageImage" #packageImage="ngModel" name="packageImage">
@@ -143,22 +132,21 @@
         </div>
       </div>
     </div> -->
-  
-    <input type="submit" value="Create Package" class="btn btn-primary">
-  </fieldset>
-  </form>
-  
-  <!-- Success message -->
-  <div class="success" *ngIf="showSucessMessage">
+
+        <input type="submit" value="Create Package" class="btn btn-primary">
+    </fieldset>
+</form>
+
+<!-- Success message -->
+<div class="success" *ngIf="showSucessMessage">
     Saved successfully
-  </div>
-  
-  <!-- Error message -->
-  <div class="alert" *ngIf="serverErrorMessages">
+</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
     {{serverErrorMessages}}
-  </div>
-  
-      <!-- <input class="form-control" type="text" #noOfDays="ngModel"   name="noOfDays" placeholder="No. of Days in Package"
+</div>
+
+<!-- <input class="form-control" type="text" #noOfDays="ngModel"   name="noOfDays" placeholder="No. of Days in Package"
       required  >
      -->
-  

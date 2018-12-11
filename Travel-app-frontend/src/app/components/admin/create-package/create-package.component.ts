@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PackageService } from '../../../services/package.service';
+
+import { Package } from '../../../models/package.model';
 
 // export interface date{
 //   date1:string;
@@ -12,10 +14,19 @@ import { PackageService } from '../../../services/package.service';
   templateUrl: './create-package.component.html',
   styleUrls: ['./create-package.component.scss']
 })
-export class CreatePackageComponent implements OnInit {
+export class CreatePackageComponent implements OnInit{
   showSucessMessage: boolean;
   serverErrorMessages: string;
-  noOfDays; 
+  selectedPackage: Package = {
+    packageID: '',
+    packageName: '',
+    source: '',
+    price: 0,
+    maxPersons: 0,
+    dates: '',
+    noOfDays: 0,
+    itineraryDays: []
+  };
   // date:date;
 
   constructor(private packageService: PackageService) { }
@@ -27,6 +38,15 @@ export class CreatePackageComponent implements OnInit {
     //   date3:""
 
     // }
+  }
+
+  initializeItinerary() {
+    this.selectedPackage.itineraryDays.length = this.selectedPackage.noOfDays;
+    this.selectedPackage.itineraryDays.fill({
+      dayTitle: '',
+      dayDescription: ''
+    });
+    console.log(this.selectedPackage.itineraryDays);
   }
 
   onSubmit(form: NgForm) {
@@ -45,11 +65,5 @@ export class CreatePackageComponent implements OnInit {
       }
     );
   }
-
-  generateDaysArray(){
-    return Array(parseInt(this.noOfDays));
-  }
-
-   
 
 }

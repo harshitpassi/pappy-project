@@ -5,9 +5,11 @@ export class Package {
     price: number;
     maxPersons: number;
     dates: any;
-    noOfDays: number; 
-    dayTitle: any;
-    dayDescription: any; 
+    noOfDays: number;
+    itineraryDays: {
+        dayTitle: any;
+        dayDescription: any;
+    }[]  
 }
 
 
